@@ -1,0 +1,26 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Borrowed books</h1>
+
+    {% if bookinstance_list %}
+    <ul>
+
+      {% for bookinst in bookinstance_list %} 
+      {{ forloop.counter }}
+      <li class="{% if bookinst.is_overdue %}text-danger{% endif %}">
+        <a href="{% url 'book-detail' bookinst.book.pk %}"> {{bookinst.book.title}}</a> <a class={% if forloop.counter == 0 %}"btn-info"
+class={% elif forloop.counter == 1 %}"btn-primary"
+class={% elif forloop.counter == 2 %}"btn-danger"
+class={% elif forloop.counter == 3 %}"btn-danger"
+class={% elif forloop.counter == 4 %}"btn-default"
+class={% elif forloop.counter == 5 %}"btn-danger"
+class={% elif forloop.counter == 6 %}"btn-danger" {% endif %}>({{ bookinst.due_back }})</a>     
+      </li>
+      {% endfor %}
+    </ul>
+
+    {% else %}
+      <p>There are no books borrowed.</p>
+    {% endif %}       
+{% endblock %}
